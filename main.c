@@ -11,7 +11,7 @@
 
 int main() {
     
-    int a[8],b,k,l[8],m[8],z,c,y,x,s=0,w,op[1000],inp_lf1=100,inp_lf2=102,inp_lf3=103,i,encrypt[1000],decrypt[1000],j;
+    int a[8],b,k,l[8],m[8],z,c,y,x,s=0,w,op[1000],inp_lf1=100,inp_lf2=102,inp_lf3=103,i,encrypt[1000],decrypt[1000],j; //Initialization of arrays and variables to be used
     int val,arr[8],lmt=0,msg[1000],n=0,count=0,num=0;
     FILE *fp,*fpe;
     fp=fopen("/Users/ShaadFazal/Desktop/Mini Project/ma.txt","w+");
@@ -24,7 +24,7 @@ int main() {
     {
         printf("Ok then");
     }
-    fprintf(fp,"I am\nnot bad\ni am not\n I am just stupid,okay! ");
+    fprintf(fp,"I am\nnot bad\ni am not\n I am just stupid,okay! ");        // Text to be encrypted
     fclose(fp);
     fp=fopen("/Users/ShaadFazal/Desktop/Mini Project/ma.txt","r+");
     val=fgetc(fp);
@@ -34,7 +34,7 @@ int main() {
         {
             for(lmt=0;lmt<8;lmt++)
             {
-                arr[lmt]=val%2;
+                arr[lmt]=val%2;                                     // Reading file character-wise and converting to binary equivalent from ASCII number
                 val=val/2;
             }
             
@@ -43,7 +43,7 @@ int main() {
         lmt=0;
         while(lmt<8)
         {
-            msg[n++]=arr[lmt++];
+            msg[n++]=arr[lmt++];                                    // Populating the input bitstream array
             
         }
         
@@ -53,7 +53,7 @@ int main() {
     
     for(lmt=0;lmt<n;lmt++)
     {
-        count=count+1;
+        count=count+1;                                          // Calculating number of bits
     }
     printf("\n%d",count);
     fclose(fp);
@@ -64,7 +64,7 @@ int main() {
     {
         for(i=0;i<8;i++)
         {
-            a[7-i] = (inp_lf3)%2;
+            a[7-i] = (inp_lf3)%2;                           // Intializing input linear feedback shift registers
             inp_lf3= (inp_lf3)/2;
         }
         
@@ -115,7 +115,7 @@ int main() {
             {
                 y=a[0];
                 w=(a[7]^a[3]^a[2]^a[1]);
-                for(b=7;b>0;b--)
+                for(b=7;b>0;b--)                // Encryption Algorithm
                 {
                     a[b-1]=a[b];
                 }
@@ -138,11 +138,11 @@ int main() {
     }
     for(i=0;i<n+1;i++)
     {
-        encrypt[i]=(msg[i]^op[i]);
+        encrypt[i]=(msg[i]^op[i]);              // Encryption
     }
     for(i=0;i<n+1;i++)
     {
-        decrypt[i]=(encrypt[i]^op[i]);
+        decrypt[i]=(encrypt[i]^op[i]);          // Decryption
     }
     i=0;
     while(i<n+1)
@@ -150,7 +150,7 @@ int main() {
         num=0;
         for(j=i;j<i+8;j++)
         {
-            num = num+(pow(2,(j-i))*encrypt[j]);
+            num = num+(pow(2,(j-i))*encrypt[j]);        // Conversion to encrypted ASCII characters
         }
         fprintf(fpe,"%c",num);
         i=i+8;
@@ -165,7 +165,7 @@ int main() {
         num=0;
         for(j=i;j<i+8;j++)
         {
-            num = num+(pow(2,(j-i))*decrypt[j]);
+            num = num+(pow(2,(j-i))*decrypt[j]);        // Conversion to decrypted characters
         }
         
         fprintf(fpe,"%c",num);
